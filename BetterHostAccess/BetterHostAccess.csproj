@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>BetterHostAccess</AssemblyTitle>
+    <AssemblyFileName>$(AssemblyTitle).dll</AssemblyFileName>
+    <RootNamespace>BetterHostAccess</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>BetterHostAccess</PackageId>
+    <Title>Component Selector Additions</Title>
+    <Authors>Banane9</Authors>
+    <Version>0.5.0-beta</Version>
+    <Description>This MonkeyLoader mod for Resonite improves the Host Access Permissions settings and adds extra capabilities.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ResoniteModdingGroup/BetterHostAccess</PackageProjectUrl>
+    <PackageTags>mod; mods; monkeyloader; resonite; component; attacher; selector; protoflux; node; picker; search; favorites</PackageTags>
+  </PropertyGroup>
+  
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy Condition="'$(CopyToLibraries)'=='true'" SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFiles="$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg" />
+    <Message Condition="'$(CopyToLibraries)'=='true'" Text="Copied '$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg' to '$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg'" Importance="high" />
+  </Target>
+  
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+    <None Include="Locale\*" Pack="true" PackagePath="content/Locale/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonkeyLoader.GamePacks.Resonite" Version="0.19.2-beta" />
+    <PackageReference Include="PolySharp" Version="1.14.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Resonite.Elements.Core" Version="1.2.1" />
+    <PackageReference Include="Resonite.Elements.Quantity" Version="1.2.1" />
+    <PackageReference Include="Resonite.FrooxEngine" Version="2024.8.6.1341" />
+  </ItemGroup>
+</Project>
